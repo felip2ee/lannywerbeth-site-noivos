@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Painel Administrativo para acompanhar visitantes, confirmações de presença e presentes do casamento Lanny & Werbeth.">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <title>Painel Administrativo - Lanny & Werbeth</title>
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- 1. Authentication / Login Panel -->
+  <div class="auth-wrapper" id="admin-auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <span>L</span>
+        <img src="images/coracao.png" alt="Coração">
+        <span>W</span>
+      </div>
+      <p class="auth-subtitle">Painel de Controle do Casal</p>
+      
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label for="admin-password">Senha de Acesso</label>
+          <input type="password" id="admin-password" placeholder="Digite a senha..." required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="btn-login-submit">
+          <i class="fa fa-sign-in-alt"></i> Entrar no Painel
+        </button>
+        <div class="auth-error" id="login-error-msg">Senha incorreta. Tente novamente!</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Dashboard Panel -->
+  <div class="dashboard-wrapper" id="admin-dashboard-wrapper">
+    <!-- Topbar Header -->
+    <header class="dashboard-header">
+      <div class="header-container">
+        <div class="header-logo">
+          <span>L</span>
+          <img src="images/coracao.png" alt="Coração">
+          <span>W</span>
+          <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal; margin-left: 8px;">• Admin Dashboard</span>
+        </div>
+        <div class="header-user">
+          <span>Olá, Administrador</span>
+          <button class="btn btn-secondary" id="btn-admin-logout" style="padding: 8px 16px; font-size: 0.85rem;">
+            <i class="fa fa-sign-out-alt"></i> Sair
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+      
+      <!-- KPI Cards Grid -->
+      <section class="kpi-grid" id="dashboard-kpis">
+        <!-- Visitors -->
+        <div class="kpi-card" id="kpi-visitors">
+          <div class="kpi-info">
+            <h4>Total de Visitas</h4>
+            <div class="kpi-value" id="val-total-visitors">0</div>
+          </div>
+          <div class="kpi-icon"><i class="fa fa-chart-line"></i></div>
+        </div>
+        
+        <!-- RSVP Answers -->
+        <div class="kpi-card" id="kpi-rsvps">
+          <div class="kpi-info">
+            <h4>Respostas RSVP</h4>
+            <div class="kpi-value" id="val-total-rsvps">0</div>
+          </div>
+          <div class="kpi-icon"><i class="fa fa-envelope-open-text"></i></div>
+        </div>
+        
+        <!-- Confirmed Guests -->
+        <div class="kpi-card" id="kpi-confirmed">
+          <div class="kpi-info">
+            <h4>Convidados Confirmados</h4>
+            <div class="kpi-value" id="val-total-guests">0</div>
+          </div>
+          <div class="kpi-icon"><i class="fa fa-users"></i></div>
+        </div>
+        
+        <!-- Gifts simulated -->
+        <div class="kpi-card" id="kpi-gifts">
+          <div class="kpi-info">
+            <h4>Presentes Ganhos</h4>
+            <div class="kpi-value" id="val-total-gifts">0</div>
+          </div>
+          <div class="kpi-icon"><i class="fa fa-gift"></i></div>
+        </div>
+      </section>
+
+      <!-- Charts Layout -->
+      <section class="charts-grid">
+        <!-- Visit timeline -->
+        <div class="chart-card">
+          <h3 class="chart-title">Cronograma de Visitas (Diário)</h3>
+          <div class="chart-container">
+            <canvas id="chart-visits-timeline"></canvas>
+          </div>
+        </div>
+        <!-- RSVP Status Distribution -->
+        <div class="chart-card">
+          <h3 class="chart-title">Status dos Convidados</h3>
+          <div class="chart-container">
+            <canvas id="chart-rsvp-distribution"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP Confirmations List -->
+      <section class="table-card" id="rsvp-table-section">
+        <div class="table-header">
+          <h3 class="table-title"><i class="fa fa-list-check"></i> Lista de Confirmados & Presentes</h3>
+          <div class="table-actions">
+            <div class="search-wrapper">
+              <i class="fa fa-search"></i>
+              <input type="text" id="rsvp-search" placeholder="Buscar convidado...">
+            </div>
+            <button class="btn btn-secondary" id="btn-export-rsvp">
+              <i class="fa fa-file-csv"></i> Exportar CSV
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <table id="rsvp-list-table">
+            <thead>
+              <tr>
+                <th>Data/Hora</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Status / Presente</th>
+                <th>Acompanhantes</th>
+                <th>Mensagem</th>
+              </tr>
+            </thead>
+            <tbody id="rsvp-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Visitors Log List -->
+      <section class="table-card" id="visitors-table-section">
+        <div class="table-header">
+          <h3 class="table-title"><i class="fa fa-eye"></i> Log de Visitas Recentes</h3>
+          <div class="table-actions">
+            <div class="search-wrapper">
+              <i class="fa fa-search"></i>
+              <input type="text" id="visitors-search" placeholder="Buscar visitas...">
+            </div>
+            <button class="btn btn-secondary" id="btn-export-visitors">
+              <i class="fa fa-file-csv"></i> Exportar CSV
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <table id="visitors-list-table">
+            <thead>
+              <tr>
+                <th>Data/Hora</th>
+                <th>Dispositivo</th>
+                <th>Navegador</th>
+                <th>Resolução</th>
+                <th>Origem (Referrer)</th>
+              </tr>
+            </thead>
+            <tbody id="visitors-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Danger Zone / Clean Data -->
+      <section class="system-card" id="danger-zone-section">
+        <h3 class="system-title"><i class="fa fa-triangle-exclamation"></i> Zona de Perigo</h3>
+        <p class="system-desc">As ações a seguir são irreversíveis. Limpar as estatísticas apagará de forma definitiva os logs de visitas e respostas de RSVP registradas no navegador local.</p>
+        <div class="system-buttons">
+          <button class="btn btn-danger" id="btn-clear-rsvps">
+            <i class="fa fa-trash-can"></i> Apagar Confirmados
+          </button>
+          <button class="btn btn-danger" id="btn-clear-visitors">
+            <i class="fa fa-trash-can"></i> Apagar Log de Visitas
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Clear Data Confirmation Modal -->
+  <div class="modal-overlay" id="clear-confirm-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="btn-close-confirm-modal">&times;</button>
+      <h3 class="modal-title" style="color: var(--color-danger);"><i class="fa fa-triangle-exclamation"></i> Confirmar Exclusão</h3>
+      <p class="modal-desc" id="confirm-modal-desc">Você tem certeza que deseja excluir todos os dados selecionados? Esta ação não pode ser desfeita.</p>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary" id="btn-cancel-clear">Cancelar</button>
+        <button class="btn btn-danger" id="btn-confirm-clear">Sim, Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="admin.js"></script>
+</body>
+</html>

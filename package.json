@@ -1,0 +1,20 @@
+{
+  "name": "lanny-werberth-wedding",
+  "version": "1.0.0",
+  "description": "Wedding Website for Lanny & Werbeth with admin dashboard",
+  "main": "index.html",
+  "scripts": {
+    "dev": "serve ."
+  },
+  "keywords": [
+    "wedding",
+    "site",
+    "rsvp",
+    "admin"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

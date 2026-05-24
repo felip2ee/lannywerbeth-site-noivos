@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Site de casamento de Lanny Araujo e Werbeth Júnior. Acompanhe os detalhes da cerimônia, recepção, lista de presentes e confirme sua presença!">
+  <meta name="author" content="Lanny & Werbeth">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <title>Lanny Araujo e Werbeth Júnior - Site do Casal | Casar.com</title>
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="main-navbar">
+    <div class="container nav-container">
+      <a href="#home-scroll" class="logo" id="nav-logo">
+        <span>L</span>
+        <img src="images/coracao.png" alt="Coração" id="logo-heart">
+        <span>W</span>
+      </a>
+      
+      <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-menu" id="nav-menu-list">
+        <li class="nav-item active"><a href="#home-scroll" id="nav-link-home">Home</a></li>
+        <li class="nav-item"><a href="#casal" id="nav-link-casal">O Casal</a></li>
+        <li class="nav-item"><a href="#cerimonia" id="nav-link-cerimonia">Cerimônia</a></li>
+        <li class="nav-item"><a href="#recepcao" id="nav-link-recepcao">Recepção</a></li>
+        <li class="nav-item"><a href="#presentes" id="nav-link-presentes">Lista de Presentes</a></li>
+        <li class="nav-item"><a href="#rsvp" id="nav-link-rsvp">Confirmar Presença</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Floating Confirm Dot (discreto, topo da tela) -->
+  <a href="#rsvp" class="floating-confirm-dot" id="floating-confirm-dot" title="Confirmar Convite">
+    <i class="fa-solid fa-heart-circle-check"></i>
+    <span class="floating-confirm-label">Confirmar Convite</span>
+  </a>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home-scroll">
+    <div class="hero-decorations">
+      <img src="images/floral-title-serenity.png" class="decor-item decor-left" alt="Decoração Floral">
+      <img src="images/floral-title-serenity.png" class="decor-item decor-right" alt="Decoração Floral">
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-card" id="hero-welcome-card">
+        <span class="save-the-date">Save the Date</span>
+        <h1 class="hero-names">
+          <span>Lanny</span>
+          <img src="images/coracao.png" class="heart" alt="Coração" id="hero-heart">
+          <span>Werbeth</span>
+        </h1>
+        <div class="wedding-date">8 de agosto de 2026</div>
+        <p class="location">Palmas - TO</p>
+      </div>
+      
+      <!-- Polaroid Couple Images -->
+      <div class="polaroid-grid">
+        <div class="polaroid-card" id="polaroid-lanny">
+          <img src="images/IMG_0615.webp" alt="Foto Lanny Araujo">
+          <div class="polaroid-caption">Lanny</div>
+        </div>
+        <div class="polaroid-card" id="polaroid-werbeth">
+          <img src="images/IMG_6588.webp" alt="Foto Werbeth Júnior">
+          <div class="polaroid-caption">Werbeth</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown Section -->
+  <section class="countdown-section" id="countdown-area">
+    <div class="container text-center">
+      <span class="cursive-text">Contagem Regressiva</span>
+      <div class="countdown-container" id="wedding-countdown">
+        <div class="countdown-box">
+          <div class="countdown-number" id="countdown-days">00</div>
+          <div class="countdown-label">Dias</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="countdown-hours">00</div>
+          <div class="countdown-label">Horas</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="countdown-minutes">00</div>
+          <div class="countdown-label">Minutos</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="countdown-seconds">00</div>
+          <div class="countdown-label">Segundos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome / Home Message Section -->
+  <section class="welcome-section section-padding" id="welcome-message-area">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">Bem-vindos ao nosso site</h2>
+        <div>
+          <img src="images/floral-title-serenity.png" class="title-floral" alt="Separador floral">
+        </div>
+      </div>
+      
+      <div class="welcome-content" id="welcome-text-content">
+        <p>Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia!</p>
+        <p>Aqui vocês encontrarão também detalhes da cerimônia, recepção, lista de presentes e o formulário de confirmação de presença.</p>
+        <p>Ah, é muito importante confirmar sua presença! Para isto, contamos com sua ajuda clicando no botão <strong>“Confirmar Presença”</strong> no topo do site ou rolando até a seção de confirmação e preenchendo os dados necessários.</p>
+        <p>Para nos presentear, escolha qualquer item da nossa Lista de Presentes. Fiquem à vontade! Aguardamos vocês no nosso grande dia! ❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O Casal / History Section -->
+  <section class="couple-section section-padding" id="casal">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">O Casal</h2>
+        <div>
+          <img src="images/floral-title-serenity.png" class="title-floral" alt="Separador floral">
+        </div>
+      </div>
+      
+      <div class="couple-grid">
+        <div class="couple-text" id="couple-story-text">
+          <p class="cursive-text">Nossa História</p>
+          <p>Histórias de amor existem, e, às vezes, nem nós mesmos acreditamos todo o tempo que já estamos juntos. Porém, o brilho intenso e apaixonado dos nossos olhares nos fazem lembrar o porquê de chegarmos até aqui sem sentir tanto o tempo passar.</p>
+          <p>Estamos muito felizes de compartilhar este marco de nossas vidas! Vamos nos casar! Estamos preparando tudo com muito carinho para curtirmos cada momento com nossos amigos e familiares queridos.</p>
+        </div>
+        
+        <!-- Couple Image Slider -->
+        <div class="couple-slider" id="couple-images-slider">
+          <div class="slide-container">
+            <img src="images/IMG_6803.webp" class="couple-slide active" alt="Lanny e Werbeth 1">
+            <img src="images/IMG_9454.webp" class="couple-slide" alt="Lanny e Werbeth 2">
+            <img src="images/IMG_0615.webp" class="couple-slide" alt="Lanny e Werbeth 3">
+            <img src="images/IMG_6588.webp" class="couple-slide" alt="Lanny e Werbeth 4">
+          </div>
+          
+          <button class="slider-btn prev" id="slider-btn-prev" aria-label="Slide anterior"><i class="fa fa-chevron-left"></i></button>
+          <button class="slider-btn next" id="slider-btn-next" aria-label="Próximo slide"><i class="fa fa-chevron-right"></i></button>
+          
+          <div class="slider-dots" id="slider-dots-container">
+            <button class="slider-dot active" data-index="0"></button>
+            <button class="slider-dot" data-index="1"></button>
+            <button class="slider-dot" data-index="2"></button>
+            <button class="slider-dot" data-index="3"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section (Ceremony & Reception) -->
+  <section class="events-section section-padding" id="eventos">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">Programação</h2>
+        <div>
+          <img src="images/floral-title-serenity.png" class="title-floral" alt="Separador floral">
+        </div>
+      </div>
+      
+      <div class="events-grid">
+        <!-- Ceremony Card -->
+        <div class="event-card" id="ceremomy-card">
+          <img src="images/confirmacao-presenca.png" class="event-icon" alt="Ícone Aliança">
+          <h3 class="event-title">Cerimônia</h3>
+          <div class="event-details">
+            <p><strong>Data:</strong> 8 de agosto de 2026</p>
+            <p><strong>Horário:</strong> 16:30h (pontual)</p>
+            <p><strong>Local:</strong> Catedral Metropolitana de Palmas</p>
+            <p>Palmas - TO</p>
+          </div>
+          <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.960264027732!2d-48.3343358!3d-10.1843194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef0005417e3f7%3A0xcfebe3e3f2d29716!2sCatedral%20Metropolitana%20de%20Palmas!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da Catedral Metropolitana de Palmas"></iframe>
+          </div>
+        </div>
+        
+        <!-- Reception Card -->
+        <div class="event-card" id="reception-card">
+          <img src="images/comunicacao.png" class="event-icon" alt="Ícone Brinde">
+          <h3 class="event-title">Recepção</h3>
+          <div class="event-details">
+            <p><strong>Data:</strong> 8 de agosto de 2026</p>
+            <p><strong>Horário:</strong> A partir das 18:30h</p>
+            <p><strong>Local:</strong> Chácara Mirante da Palma</p>
+            <p>Palmas - TO</p>
+          </div>
+          <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.31456108173!2d-48.2721867!3d-10.2223847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef400592f5f51%3A0x51fa0f2e4d8b1d7d!2sMirante%20da%20Palma!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da Chácara Mirante da Palma"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gifts Section -->
+  <section class="gifts-section section-padding" id="presentes">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">Lista de Presentes</h2>
+        <div>
+          <img src="images/floral-title-serenity.png" class="title-floral" alt="Separador floral">
+        </div>
+      </div>
+      
+      <div class="gifts-intro">
+        <p>Abaixo você pode escolher um presente simbólico de nossa lista. Todo o valor recebido será revertido para ajudar na organização do nosso casamento e em nossa lua de mel! ❤️</p>
+      </div>
+      
+      <!-- Filters and Search -->
+      <div class="gifts-controls">
+        <div class="gifts-search">
+          <i class="fa fa-search"></i>
+          <input type="text" id="gift-search-input" placeholder="Buscar presente...">
+        </div>
+        <div class="gifts-filter">
+          <select id="gift-category-filter" aria-label="Filtrar por categoria">
+            <option value="all">Todas as Categorias</option>
+            <option value="lua-de-mel">Lua de Mel</option>
+            <option value="cozinha">Cozinha & Mesa</option>
+            <option value="eletro">Eletrodomésticos</option>
+            <option value="decor">Móveis & Decoração</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Gifts Cards Grid -->
+      <div class="gifts-grid" id="gifts-cards-grid">
+        <!-- Gift cards are generated via Javascript for better maintainability and search -->
+      </div>
+      
+      <!-- Load More -->
+      <div class="gifts-more" id="gifts-load-more-container" style="display: none;">
+        <button class="btn btn-secondary" id="btn-gifts-load-more">Ver mais presentes</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP (Confirm Presence) Section -->
+  <section class="rsvp-section section-padding" id="rsvp">
+    <div class="container text-center">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">Confirme sua Presença</h2>
+        <div>
+          <img src="images/floral-title-serenity.png" class="title-floral" alt="Separador floral">
+        </div>
+      </div>
+      
+      <div class="rsvp-wrapper" id="rsvp-form-container">
+        <form class="rsvp-form" id="rsvp-wedding-form">
+          <div class="form-group">
+            <label for="rsvp-name">Nome Completo *</label>
+            <input type="text" id="rsvp-name" required placeholder="Digite seu nome completo">
+          </div>
+          
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="rsvp-email">E-mail *</label>
+              <input type="email" id="rsvp-email" required placeholder="exemplo@email.com">
+            </div>
+            <div class="form-group">
+              <label for="rsvp-phone">Telefone / WhatsApp *</label>
+              <input type="tel" id="rsvp-phone" required placeholder="(63) 99999-9999">
+            </div>
+          </div>
+          
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="rsvp-attending">Você irá comparecer? *</label>
+              <select id="rsvp-attending" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="yes">Sim, irei comparecer!</option>
+                <option value="no">Não poderei comparecer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="rsvp-guests">Acompanhantes adicionais</label>
+              <select id="rsvp-guests">
+                <option value="0">Nenhum</option>
+                <option value="1">1 acompanhante</option>
+                <option value="2">2 acompanhantes</option>
+                <option value="3">3 acompanhantes</option>
+                <option value="4">4 acompanhantes</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="rsvp-message">Deixe uma mensagem para o casal</label>
+            <textarea id="rsvp-message" rows="3" placeholder="Escreva aqui seu carinho..."></textarea>
+          </div>
+          
+          <label class="checkbox-group" id="rsvp-terms-check">
+            <input type="checkbox" required id="rsvp-terms">
+            <span>Declaro que concordo com os termos de privacidade e autorizo o envio de comunicações sobre o evento.</span>
+          </label>
+          
+          <button type="submit" class="btn btn-primary btn-full" id="btn-submit-rsvp">
+            <i class="fa-solid fa-heart-circle-check"></i> Confirmar Presença
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">Lanny & Werbeth</div>
+      <p>8 de agosto de 2026 • Palmas, Tocantins</p>
+      <p style="margin-top: 8px; font-size: 0.8rem;">Feito com amor • Todos os direitos reservados</p>
+      <a href="https://casar.com" target="_blank" rel="noopener noreferrer">
+        <img src="images/logo-casarpontocom-anel-70.png" class="casar-badge" alt="Selo Casar.com">
+      </a>
+    </div>
+  </footer>
+
+  <!-- Modal Gift / PIX -->
+  <div class="modal-overlay" id="gift-modal">
+    <div class="modal-box" id="gift-modal-box">
+      <button class="modal-close" id="btn-close-gift-modal" aria-label="Fechar modal">&times;</button>
+      <img src="images/confirmacao-presenca.png" class="modal-icon" alt="Ícone Presente">
+      <h3 class="modal-title">Presentear o Casal</h3>
+      <p class="modal-text">Você escolheu enviar um presente muito especial para o casal! ❤️</p>
+      
+      <div class="gift-summary">
+        <img src="images/coracao.png" id="modal-gift-image" alt="Imagem do Presente">
+        <div>
+          <div class="gift-summary-name" id="modal-gift-name">Nome do Presente</div>
+          <div class="gift-summary-price" id="modal-gift-price">R$ 0,00</div>
+        </div>
+      </div>
+      
+      <div class="pix-box" style="border: 2px dashed var(--primary-color); background: #f4fafc; padding: 20px; text-align: center; margin-bottom: 20px;">
+        <i class="fa-solid fa-shield-halved" style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 8px;"></i>
+        <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 6px;">Pagamento 100% Seguro</h4>
+        <p style="font-size: 0.82rem; color: var(--text-light); line-height: 1.4; margin-bottom: 0;">Escreva sua mensagem abaixo. Ao clicar em Confirmar, registraremos sua homenagem no painel do casal e abriremos a plataforma Cakto para você concluir a contribuição (via PIX ou Cartão de Crédito).</p>
+      </div>
+      
+      <!-- Tribute Message Form -->
+      <form id="gift-message-form" class="rsvp-form" style="margin-top: 16px;">
+        <div class="form-group">
+          <label for="gift-sender-name">Seu Nome *</label>
+          <input type="text" id="gift-sender-name" required placeholder="Seu nome completo">
+        </div>
+        <div class="form-group">
+          <label for="gift-sender-message">Deixe uma mensagem de carinho *</label>
+          <textarea id="gift-sender-message" required rows="2" placeholder="Escreva uma mensagem especial para o casal..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="btn-submit-gift-tribute">
+          <i class="fa-solid fa-cart-shopping"></i> Confirmar e ir para o Pagamento
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Success -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="btn-close-success-modal" aria-label="Fechar modal">&times;</button>
+      <img src="images/send-message.png" class="modal-icon" alt="Sucesso" style="width: 80px; height: 80px;">
+      <h3 class="modal-title" id="success-modal-title">Tudo certo!</h3>
+      <p class="modal-text" id="success-modal-text">Já recebemos a sua confirmação. Muito obrigado por fazer parte deste dia especial com a gente! 😉</p>
+      
+      <button class="btn btn-primary" id="btn-success-close">Ok, Obrigado!</button>
+    </div>
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

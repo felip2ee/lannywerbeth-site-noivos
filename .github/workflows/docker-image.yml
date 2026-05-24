@@ -1,12 +1,30 @@
-# git-ignore/docker-compose.yml
-version: '3.8'
+name: Docker Image CI
 
-services:
-  web:
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    container_name: lanny-werberth-site
-    ports:
-      - "8080:80"
-    restart: unless-stopped
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest

@@ -19,7 +19,7 @@ services:
           memory: 128M
       labels:
         - traefik.enable=true
-        - traefik.http.routers.lanny_wedding.rule=Host(`lannywerbeth.agencianovabr.com`)
+        - traefik.http.routers.lanny_wedding.rule=Host(`lannywerbeth.agencianovabr.br`)
         - traefik.http.routers.lanny_wedding.entrypoints=websecure
         - traefik.http.routers.lanny_wedding.tls.certresolver=letsencryptresolver
         - traefik.http.routers.lanny_wedding.priority=1

@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   lanny_wedding:
-    image: ghcr.io/felip2ee/lannywerbeth-site-noivos:latest 
+    image: ghcr.io/felip2ee/lannywerbeth-site-noivos:latest
 
     networks:
       - NovaBrNet ## Nome da rede interna

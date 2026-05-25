@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSlider();
   initGifts();
   initRSVP();
+  initFloatingConfirm();
   trackVisitor();
 });
 
@@ -93,6 +94,27 @@ function initNavigation() {
       }
     });
   }
+}
+
+// ==========================================
+// 1b. Floating Confirm Button
+// ==========================================
+function initFloatingConfirm() {
+  const btn = document.getElementById('floating-confirm-dot');
+  const hero = document.getElementById('home-scroll');
+  if (!btn || !hero) return;
+
+  function updateFloating() {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    if (window.scrollY > heroBottom * 0.4) {
+      btn.classList.add('is-floating');
+    } else {
+      btn.classList.remove('is-floating');
+    }
+  }
+
+  window.addEventListener('scroll', updateFloating, { passive: true });
+  updateFloating();
 }
 
 // ==========================================

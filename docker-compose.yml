@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   lanny_wedding:
-    image: lanny-werberth:latest ## Build: docker build -t lanny-werberth:latest . (rodar no manager)
+    image: ghcr.io/felip2ee/lannywerbeth-site-noivos:latest 
 
     networks:
       - NovaBrNet ## Nome da rede interna

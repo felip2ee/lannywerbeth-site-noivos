@@ -155,6 +155,9 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Mobile card list (hidden on desktop) -->
+        <div class="rsvp-card-list" id="rsvp-card-list"></div>
       </section>
 
       <!-- Visitors Log List -->
@@ -205,6 +208,31 @@
       </section>
 
     </main>
+  </div>
+
+  <!-- RSVP Detail Modal (bottom sheet on mobile, centered on desktop) -->
+  <div class="modal-overlay" id="rsvp-detail-modal">
+    <div class="detail-sheet" id="rsvp-detail-sheet">
+      <div class="detail-handle"></div>
+      <button class="detail-close" id="btn-close-rsvp-detail">&times;</button>
+
+      <div class="detail-header">
+        <div class="detail-avatar" id="detail-avatar">??</div>
+        <div class="detail-header-text">
+          <h3 class="detail-name" id="detail-name">—</h3>
+          <div id="detail-status-badge"></div>
+        </div>
+      </div>
+
+      <div class="detail-info-grid" id="detail-info-grid">
+        <!-- Rendered via JS -->
+      </div>
+
+      <div class="detail-message-section" id="detail-message-section">
+        <div class="detail-message-label"><i class="fa fa-comment-dots"></i> Mensagem</div>
+        <div class="detail-message-text" id="detail-message-text"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Clear Data Confirmation Modal -->

@@ -8,6 +8,7 @@ let rsvpChart = null;
 let activeClearTarget = null;
 let cachedRsvps = [];
 let cachedVisitors = [];
+let activeDetailEntry = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initExport();
   initClearData();
+  initDetailModal();
 });
 
 // ==========================================
@@ -157,6 +159,8 @@ function renderRSVPTable(rsvps, filterText = '') {
     }
 
     const row = document.createElement('tr');
+    row.style.cursor = 'pointer';
+    row.title = 'Clique para ver detalhes';
     row.innerHTML = `
       <td>${date}</td>
       <td><strong>${r.name}</strong></td>
@@ -168,8 +172,11 @@ function renderRSVPTable(rsvps, filterText = '') {
         ${r.message || '<em style="color: var(--text-muted);">Sem mensagem</em>'}
       </td>
     `;
+    row.addEventListener('click', () => openDetailModal(r));
     tbody.appendChild(row);
   });
+
+  renderRSVPCards(filtered);
 }
 
 function renderVisitorsTable(visitors, filterText = '') {
@@ -215,7 +222,135 @@ function renderVisitorsTable(visitors, filterText = '') {
 }
 
 // ==========================================
-// 4. Interactive Search
+// 4. RSVP Mobile Cards
+// ==========================================
+function renderRSVPCards(rsvps) {
+  const container = document.getElementById('rsvp-card-list');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (rsvps.length === 0) {
+    container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 24px 0;">Nenhum resultado encontrado.</p>';
+    return;
+  }
+
+  rsvps.forEach(r => {
+    const names = r.name.trim().split(' ');
+    const initials = (names.length >= 2
+      ? names[0][0] + names[names.length - 1][0]
+      : names[0].substring(0, 2)
+    ).toUpperCase();
+
+    const date = new Date(r.timestamp).toLocaleDateString('pt-BR');
+
+    let badge = '';
+    if (r.isGift) {
+      badge = `<span class="badge badge-gift"><i class="fa fa-gift"></i> Presente</span>`;
+    } else if (r.attending) {
+      badge = `<span class="badge badge-success"><i class="fa fa-check"></i> Confirmado</span>`;
+    } else {
+      badge = `<span class="badge badge-danger"><i class="fa fa-times"></i> Não Irá</span>`;
+    }
+
+    const meta = r.isGift
+      ? `${r.giftName} • ${date}`
+      : `${r.guests > 0 ? `+${r.guests} acomp.` : 'Só ele/ela'} • ${date}`;
+
+    const card = document.createElement('div');
+    card.className = 'rsvp-card';
+    card.innerHTML = `
+      <div class="rsvp-card-avatar">${initials}</div>
+      <div class="rsvp-card-info">
+        <div class="rsvp-card-name">${r.name}</div>
+        <div class="rsvp-card-meta">${meta}</div>
+      </div>
+      <div class="rsvp-card-right">${badge}</div>
+      <i class="fa fa-chevron-right rsvp-card-arrow"></i>
+    `;
+    card.addEventListener('click', () => openDetailModal(r));
+    container.appendChild(card);
+  });
+}
+
+// ==========================================
+// 4b. RSVP Detail Modal
+// ==========================================
+function openDetailModal(r) {
+  activeDetailEntry = r;
+
+  const names = r.name.trim().split(' ');
+  const initials = (names.length >= 2
+    ? names[0][0] + names[names.length - 1][0]
+    : names[0].substring(0, 2)
+  ).toUpperCase();
+
+  document.getElementById('detail-avatar').textContent = initials;
+  document.getElementById('detail-name').textContent = r.name;
+
+  const badgeEl = document.getElementById('detail-status-badge');
+  if (r.isGift) {
+    badgeEl.innerHTML = `<span class="badge badge-gift"><i class="fa fa-gift"></i> Presente: ${r.giftName}</span>`;
+  } else if (r.attending) {
+    badgeEl.innerHTML = `<span class="badge badge-success"><i class="fa fa-check"></i> Confirmado</span>`;
+  } else {
+    badgeEl.innerHTML = `<span class="badge badge-danger"><i class="fa fa-times"></i> Não Irá</span>`;
+  }
+
+  const date = new Date(r.timestamp).toLocaleString('pt-BR');
+  const guestsText = r.isGift
+    ? `${r.giftName} — R$ ${(r.giftValue || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+    : (r.guests > 0 ? `${r.guests} acompanhante(s) além de ${names[0]}` : `Apenas ${names[0]}`);
+
+  const rows = [
+    { icon: 'fa-calendar-days', label: 'Data / Hora', value: date },
+    { icon: 'fa-envelope',      label: 'E-mail',      value: `<a href="mailto:${r.email}">${r.email}</a>` },
+    { icon: 'fa-phone',         label: 'Telefone',    value: `<a href="tel:${r.phone}">${r.phone}</a>` },
+    { icon: r.isGift ? 'fa-gift' : 'fa-users',
+      label: r.isGift ? 'Presente' : 'Acompanhantes',
+      value: guestsText },
+  ];
+
+  document.getElementById('detail-info-grid').innerHTML = rows.map(row => `
+    <div class="detail-info-row">
+      <div class="detail-info-icon"><i class="fa ${row.icon}"></i></div>
+      <div class="detail-info-content">
+        <div class="detail-info-label">${row.label}</div>
+        <div class="detail-info-value">${row.value}</div>
+      </div>
+    </div>
+  `).join('');
+
+  const msgSection = document.getElementById('detail-message-section');
+  const msgText    = document.getElementById('detail-message-text');
+  if (r.message && r.message.trim()) {
+    msgText.textContent = `"${r.message}"`;
+    msgSection.style.display = 'block';
+  } else {
+    msgSection.style.display = 'none';
+  }
+
+  document.getElementById('rsvp-detail-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetailModal() {
+  document.getElementById('rsvp-detail-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  activeDetailEntry = null;
+}
+
+function initDetailModal() {
+  const modal    = document.getElementById('rsvp-detail-modal');
+  const closeBtn = document.getElementById('btn-close-rsvp-detail');
+
+  closeBtn.addEventListener('click', closeDetailModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeDetailModal();
+  });
+}
+
+// ==========================================
+// 5. Interactive Search
 // ==========================================
 function initSearch() {
   const rsvpSearch = document.getElementById('rsvp-search');
@@ -231,7 +366,7 @@ function initSearch() {
 }
 
 // ==========================================
-// 5. Chart.js Graphs Rendering
+// 6. Chart.js Graphs Rendering
 // ==========================================
 function renderCharts(rsvps, visitors) {
   // Destroy existing charts to reload clean on updates
@@ -336,7 +471,7 @@ function renderCharts(rsvps, visitors) {
 }
 
 // ==========================================
-// 6. CSV Exporters
+// 7. CSV Exporters
 // ==========================================
 function initExport() {
   const exportRSVPBtn = document.getElementById('btn-export-rsvp');
@@ -407,7 +542,7 @@ function downloadCSV(csvContent, filename) {
 }
 
 // ==========================================
-// 7. Clear Data / Local DB Reset
+// 8. Clear Data / Local DB Reset
 // ==========================================
 function initClearData() {
   const clearRSVPBtn = document.getElementById('btn-clear-rsvps');

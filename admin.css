@@ -776,3 +776,283 @@ td strong {
     font-size: 0.75rem;
   }
 }
+
+/* ==========================================
+   RSVP Mobile Cards
+   ========================================== */
+.rsvp-card-list {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rsvp-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.rsvp-card:active {
+  background: rgba(126, 184, 208, 0.08);
+  border-color: rgba(126, 184, 208, 0.3);
+}
+
+.rsvp-card-avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
+  text-transform: uppercase;
+}
+
+.rsvp-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.rsvp-card-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rsvp-card-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rsvp-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.rsvp-card-arrow {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   RSVP Detail Bottom Sheet / Modal
+   ========================================== */
+#rsvp-detail-modal {
+  align-items: flex-end;
+}
+
+.detail-sheet {
+  background: #1e293b;
+  border: 1px solid var(--admin-border);
+  border-radius: 24px 24px 0 0;
+  padding: 10px 20px 36px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+#rsvp-detail-modal.active .detail-sheet {
+  transform: translateY(0);
+}
+
+.detail-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.detail-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--admin-border);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.detail-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-right: 40px;
+}
+
+.detail-avatar {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #0f172a;
+  text-transform: uppercase;
+}
+
+.detail-name {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.detail-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.detail-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.45);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--admin-border);
+}
+
+.detail-info-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  background: rgba(126, 184, 208, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+}
+
+.detail-info-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-info-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 2px;
+}
+
+.detail-info-value {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.detail-info-value a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.detail-message-section {
+  background: rgba(126, 184, 208, 0.05);
+  border: 1px solid rgba(126, 184, 208, 0.18);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.detail-message-label {
+  font-size: 0.72rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.detail-message-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Desktop: modal centralizado */
+@media (min-width: 769px) {
+  #rsvp-detail-modal {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .detail-sheet {
+    border-radius: var(--radius-lg);
+    max-width: 520px;
+    width: 90%;
+    transform: scale(0.9);
+    padding: 28px 28px 32px;
+  }
+
+  #rsvp-detail-modal.active .detail-sheet {
+    transform: scale(1);
+  }
+
+  .detail-handle {
+    display: none;
+  }
+}
+
+/* Mobile: troca tabela por cards */
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .rsvp-card-list {
+    display: flex;
+  }
+}

@@ -5,7 +5,9 @@
 // Global variables for Chart instances so we can update/destroy them
 let visitsChart = null;
 let rsvpChart = null;
-let activeClearTarget = null; // 'rsvp' or 'visitors'
+let activeClearTarget = null;
+let cachedRsvps = [];
+let cachedVisitors = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
@@ -66,14 +68,33 @@ function initLogout() {
 // ==========================================
 // 2. Data Loading & KPI Calculations
 // ==========================================
-function loadDashboard() {
-  const rsvps = JSON.parse(localStorage.getItem('lw_rsvp') || '[]');
-  const visitors = JSON.parse(localStorage.getItem('lw_visitors') || '[]');
+async function loadDashboard() {
+  const { data: rsvpData,  error: rsvpErr }  = await sbClient.from('rsvp').select('*');
+  const { data: visitData, error: visitErr } = await sbClient.from('visitors').select('*');
 
-  calculateKPIs(rsvps, visitors);
-  renderCharts(rsvps, visitors);
-  renderRSVPTable(rsvps);
-  renderVisitorsTable(visitors);
+  if (rsvpErr)  console.error('Supabase rsvp:', rsvpErr.message);
+  if (visitErr) console.error('Supabase visitors:', visitErr.message);
+
+  // Mapeia snake_case do banco para camelCase usado pelo restante do painel
+  cachedRsvps = (rsvpData || []).map(r => ({
+    ...r,
+    timestamp: r.submitted_at,
+    isGift:    r.is_gift,
+    giftName:  r.gift_name,
+    giftValue: r.gift_value,
+  }));
+
+  cachedVisitors = (visitData || []).map(v => ({
+    ...v,
+    timestamp:  v.submitted_at,
+    userAgent:  v.user_agent,
+    screenSize: v.screen_size,
+  }));
+
+  calculateKPIs(cachedRsvps, cachedVisitors);
+  renderCharts(cachedRsvps, cachedVisitors);
+  renderRSVPTable(cachedRsvps);
+  renderVisitorsTable(cachedVisitors);
 }
 
 function calculateKPIs(rsvps, visitors) {
@@ -201,13 +222,11 @@ function initSearch() {
   const visitorsSearch = document.getElementById('visitors-search');
 
   rsvpSearch.addEventListener('input', () => {
-    const rsvps = JSON.parse(localStorage.getItem('lw_rsvp') || '[]');
-    renderRSVPTable(rsvps, rsvpSearch.value);
+    renderRSVPTable(cachedRsvps, rsvpSearch.value);
   });
 
   visitorsSearch.addEventListener('input', () => {
-    const visitors = JSON.parse(localStorage.getItem('lw_visitors') || '[]');
-    renderVisitorsTable(visitors, visitorsSearch.value);
+    renderVisitorsTable(cachedVisitors, visitorsSearch.value);
   });
 }
 
@@ -324,7 +343,7 @@ function initExport() {
   const exportVisitorsBtn = document.getElementById('btn-export-visitors');
 
   exportRSVPBtn.addEventListener('click', () => {
-    const rsvps = JSON.parse(localStorage.getItem('lw_rsvp') || '[]');
+    const rsvps = cachedRsvps;
     if (rsvps.length === 0) {
       alert('Nenhum registro para exportar.');
       return;
@@ -352,7 +371,7 @@ function initExport() {
   });
 
   exportVisitorsBtn.addEventListener('click', () => {
-    const visitors = JSON.parse(localStorage.getItem('lw_visitors') || '[]');
+    const visitors = cachedVisitors;
     if (visitors.length === 0) {
       alert('Nenhum registro de visitas para exportar.');
       return;
@@ -425,10 +444,12 @@ function initClearData() {
     if (e.target === modal) closeModal();
   });
 
-  confirmBtn.addEventListener('click', () => {
+  confirmBtn.addEventListener('click', async () => {
     if (activeClearTarget === 'rsvp') {
+      await sbClient.from('rsvp').delete().not('id', 'is', null);
       localStorage.removeItem('lw_rsvp');
     } else if (activeClearTarget === 'visitors') {
+      await sbClient.from('visitors').delete().not('id', 'is', null);
       localStorage.removeItem('lw_visitors');
     }
     closeModal();

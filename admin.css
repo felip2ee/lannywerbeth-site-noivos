@@ -576,3 +576,203 @@ td strong {
     transform: translateY(0);
   }
 }
+
+/* ==========================================
+   Responsivo — Tablet (≤ 1024px)
+   ========================================== */
+@media (max-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-content {
+    padding: 24px 16px;
+  }
+}
+
+/* ==========================================
+   Responsivo — Mobile (≤ 768px)
+   ========================================== */
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 12px 16px;
+  }
+
+  .header-logo {
+    font-size: 1.15rem;
+    gap: 6px;
+  }
+
+  .header-logo img {
+    height: 15px;
+  }
+
+  /* Esconde o subtítulo "• Admin Dashboard" e o "Olá, Administrador" */
+  .header-logo span:last-child,
+  .header-user > span {
+    display: none;
+  }
+
+  .dashboard-content {
+    padding: 16px 12px;
+    gap: 16px;
+  }
+
+  /* KPIs — 2 colunas no mobile */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .kpi-card {
+    padding: 14px 12px;
+    gap: 8px;
+  }
+
+  .kpi-info h4 {
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .kpi-value {
+    font-size: 1.65rem;
+  }
+
+  .kpi-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  /* Gráficos */
+  .chart-card {
+    padding: 16px;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+
+  .chart-container {
+    height: 200px;
+  }
+
+  /* Tabelas */
+  .table-card {
+    padding: 14px 12px;
+  }
+
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .table-title {
+    font-size: 1rem;
+  }
+
+  .table-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-wrapper {
+    width: 100%;
+  }
+
+  .search-wrapper input {
+    width: 100%;
+  }
+
+  .table-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  th, td {
+    padding: 10px 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  /* Zona de perigo */
+  .system-card {
+    padding: 16px;
+  }
+
+  .system-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .system-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Modal */
+  .modal-box {
+    padding: 24px 18px;
+    width: 94%;
+  }
+
+  .modal-title {
+    font-size: 1.15rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ==========================================
+   Responsivo — Mobile Pequeno (≤ 480px)
+   ========================================== */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 18px;
+  }
+
+  .kpi-grid {
+    gap: 8px;
+  }
+
+  .kpi-card {
+    padding: 12px 10px;
+  }
+
+  .kpi-value {
+    font-size: 1.45rem;
+  }
+
+  .kpi-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+
+  .kpi-info h4 {
+    font-size: 0.68rem;
+  }
+
+  .chart-container {
+    height: 180px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 0.75rem;
+  }
+}

@@ -462,6 +462,7 @@ function initRSVP() {
     const currentRSVP = JSON.parse(localStorage.getItem('lw_rsvp') || '[]');
     currentRSVP.push(rsvpRecord);
     localStorage.setItem('lw_rsvp', JSON.stringify(currentRSVP));
+    saveRSVPToSupabase(rsvpRecord);
 
     // Salva cookie para identificar este convidado em outras ações (ex: presentear)
     setCookie('lw_confirmed_guest', JSON.stringify({ name, phone }), 365);
@@ -545,6 +546,43 @@ function trackVisitor() {
   const currentVisitors = JSON.parse(localStorage.getItem('lw_visitors') || '[]');
   currentVisitors.push(visitorRecord);
   localStorage.setItem('lw_visitors', JSON.stringify(currentVisitors));
+  saveVisitorToSupabase(visitorRecord);
 
   sessionStorage.setItem('lw_tracked_session', 'true');
+}
+
+async function saveRSVPToSupabase(record) {
+  try {
+    const { error } = await sbClient.from('rsvp').insert({
+      submitted_at: record.timestamp,
+      name:         record.name,
+      email:        record.email,
+      phone:        record.phone,
+      attending:    record.attending,
+      guests:       record.guests,
+      message:      record.message,
+      is_gift:      record.isGift,
+      gift_name:    record.giftName,
+      gift_value:   record.giftValue,
+    });
+    if (error) console.warn('Supabase RSVP:', error.message);
+  } catch (e) {
+    console.warn('Supabase indisponível:', e.message);
+  }
+}
+
+async function saveVisitorToSupabase(record) {
+  try {
+    const { error } = await sbClient.from('visitors').insert({
+      submitted_at: record.timestamp,
+      user_agent:   record.userAgent,
+      referrer:     record.referrer,
+      screen_size:  record.screenSize,
+      device:       record.device,
+      browser:      record.browser,
+    });
+    if (error) console.warn('Supabase visitors:', error.message);
+  } catch (e) {
+    console.warn('Supabase indisponível:', e.message);
+  }
 }

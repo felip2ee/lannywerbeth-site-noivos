@@ -9,6 +9,7 @@ let activeClearTarget = null;
 let cachedRsvps = [];
 let cachedVisitors = [];
 let activeDetailEntry = null;
+let currentRsvpTab = 'rsvp'; // 'rsvp' | 'gift'
 
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initExport();
   initClearData();
   initDetailModal();
+  initTabs();
 });
 
 // ==========================================
@@ -95,7 +97,7 @@ async function loadDashboard() {
 
   calculateKPIs(cachedRsvps, cachedVisitors);
   renderCharts(cachedRsvps, cachedVisitors);
-  renderRSVPTable(cachedRsvps);
+  renderRSVPTable(getTabFilteredRsvps());
   renderVisitorsTable(cachedVisitors);
 }
 
@@ -139,7 +141,11 @@ function renderRSVPTable(rsvps, filterText = '') {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Nenhum convidado ou presente registrado.</td></tr>';
+    const emptyMsg = currentRsvpTab === 'gift'
+      ? 'Nenhum presente registrado ainda.'
+      : 'Nenhuma confirmação de presença registrada.';
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">${emptyMsg}</td></tr>`;
+    renderRSVPCards(filtered);
     return;
   }
 
@@ -350,14 +356,35 @@ function initDetailModal() {
 }
 
 // ==========================================
-// 5. Interactive Search
+// 5. Tab Filtering (Confirmados / Presentes)
+// ==========================================
+function getTabFilteredRsvps() {
+  if (currentRsvpTab === 'gift') return cachedRsvps.filter(r => r.isGift);
+  return cachedRsvps.filter(r => !r.isGift);
+}
+
+function initTabs() {
+  const tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentRsvpTab = btn.dataset.tab;
+      const searchVal = document.getElementById('rsvp-search').value;
+      renderRSVPTable(getTabFilteredRsvps(), searchVal);
+    });
+  });
+}
+
+// ==========================================
+// 5b. Interactive Search
 // ==========================================
 function initSearch() {
   const rsvpSearch = document.getElementById('rsvp-search');
   const visitorsSearch = document.getElementById('visitors-search');
 
   rsvpSearch.addEventListener('input', () => {
-    renderRSVPTable(cachedRsvps, rsvpSearch.value);
+    renderRSVPTable(getTabFilteredRsvps(), rsvpSearch.value);
   });
 
   visitorsSearch.addEventListener('input', () => {
@@ -478,7 +505,7 @@ function initExport() {
   const exportVisitorsBtn = document.getElementById('btn-export-visitors');
 
   exportRSVPBtn.addEventListener('click', () => {
-    const rsvps = cachedRsvps;
+    const rsvps = getTabFilteredRsvps();
     if (rsvps.length === 0) {
       alert('Nenhum registro para exportar.');
       return;

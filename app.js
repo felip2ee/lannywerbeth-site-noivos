@@ -367,6 +367,10 @@ function initGifts() {
 
     const clickRecord = {
       name: senderName,
+      email: '',
+      phone: '',
+      attending: false,
+      guests: 0,
       message: senderMsg,
       giftName: selectedGift.name,
       giftValue: selectedGift.price,
@@ -376,6 +380,7 @@ function initGifts() {
     const currentRSVP = JSON.parse(localStorage.getItem('lw_rsvp') || '[]');
     currentRSVP.push(clickRecord);
     localStorage.setItem('lw_rsvp', JSON.stringify(currentRSVP));
+    saveRSVPToSupabase(clickRecord);
 
     window.open(selectedGift.link, '_blank');
     closeGiftModal();

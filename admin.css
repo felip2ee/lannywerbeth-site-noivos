@@ -778,6 +778,48 @@ td strong {
 }
 
 /* ==========================================
+   Tab Bar (Confirmados / Presentes)
+   ========================================== */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--admin-border);
+  margin-bottom: 16px;
+  gap: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 10px 22px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-btn[data-tab="gift"].active {
+  color: var(--color-secondary);
+  border-bottom-color: var(--color-secondary);
+}
+
+/* ==========================================
    RSVP Mobile Cards
    ========================================== */
 .rsvp-card-list {

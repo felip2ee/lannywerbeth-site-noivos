@@ -3,6 +3,10 @@ services:
 
   lanny_wedding:
     image: ghcr.io/felip2ee/lannywerbeth-site-noivos:latest
+    
+    # 🚀 ADICIONADO AQUI: Vincula o arquivo da VPS definitivo para dentro do container
+    volumes:
+      - /root/supabase-config.js:/usr/share/nginx/html/supabase-config.js
 
     networks:
       - NovaBrNet ## Nome da rede interna

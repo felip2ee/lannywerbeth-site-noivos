@@ -6,7 +6,7 @@ services:
     
     # 🚀 ADICIONADO AQUI: Vincula o arquivo da VPS definitivo para dentro do container
     volumes:
-      - /root/supabase-config.js:/usr/share/nginx/html/supabase-config.js
+      - /root/supabase-config.js:/usr/share/nginx/html/supabase-config.js:ro
 
     networks:
       - NovaBrNet ## Nome da rede interna

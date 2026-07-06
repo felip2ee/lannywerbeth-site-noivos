@@ -1,5 +1,5 @@
 /**
- * Lanny & Werbeth Wedding Site JavaScript
+ * Lanny & Werbeth Wedding Site JavaScript fdsfsd 
  */
 
 document.addEventListener('DOMContentLoaded', () => {
